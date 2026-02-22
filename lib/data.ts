@@ -107,6 +107,27 @@ export interface Project {
 export const projects: Project[] = [
   // ── Mobile Apps ──
   {
+    name: "Netevia",
+    description:
+      "Online banking mobile application providing seamless digital banking experiences — account management, transactions, and financial services on the go.",
+    tech: ["React Native", "TypeScript", "REST APIs"],
+    type: "mobile",
+  },
+  {
+    name: "DriveMe",
+    description:
+      "Ride-hailing passenger app — request rides, track your driver in real time, and pay seamlessly through the app.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+  },
+  {
+    name: "DriveMe Driver",
+    description:
+      "Driver-side companion app for the DriveMe platform — accept ride requests, navigate to passengers, and manage earnings.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+  },
+  {
     name: "VBrato & SwishSportsApp",
     description:
       "Cross-platform sports and social mobile applications with real-time chat, in-app purchases, and rich media features.",
