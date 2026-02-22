@@ -100,6 +100,8 @@ export interface Project {
   tech: string[];
   type: "mobile" | "web";
   links?: { label: string; url: string }[];
+  image?: string;
+  color?: string;
 }
 
 export const projects: Project[] = [
