@@ -103,47 +103,35 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  // ── Mobile Apps ──
   {
     name: "VBrato & SwishSportsApp",
     description:
       "Cross-platform sports and social mobile applications with real-time chat, in-app purchases, and rich media features.",
     tech: ["React Native", "GraphQL", "Sendbird", "TypeScript"],
     type: "mobile",
-    links: [
-      { label: "iOS", url: "https://apps.apple.com/app/vbrato/id6467449182" },
-      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.vbrato" },
-    ],
   },
   {
-    name: "Nexus",
+    name: "Align 360",
     description:
-      "Crypto portfolio platform providing access to 200+ digital assets with themed portfolios and blockchain wallet integration.",
-    tech: ["Svelte", "React", "Blockchain", "TypeScript"],
-    type: "web",
-    links: [
-      { label: "Website", url: "https://projectnexus.io" },
-    ],
-  },
-  {
-    name: "Nestegg.ai",
-    description:
-      "UK fintech platform matching borrowers with responsible lenders using credit, banking, and alternative data analysis.",
-    tech: ["React", "Redux", "TypeScript", "REST APIs"],
-    type: "web",
-    links: [
-      { label: "Website", url: "https://nestegg.ai" },
-    ],
-  },
-  {
-    name: "CLICK Uzbekistan",
-    description:
-      "One of Uzbekistan's leading mobile payment platforms — millions of daily transactions across iOS and Android.",
-    tech: ["React Native", "Redux", "CI/CD", "JavaScript"],
+      "Construction and repair team app combining a task manager, analytical tool, and messenger for communication within contractor and subcontractor teams.",
+    tech: ["React Native", "TypeScript", "Redux", "Axios"],
     type: "mobile",
     links: [
-      { label: "iOS", url: "https://apps.apple.com/app/click-uz/id976439498" },
-      { label: "Android", url: "https://play.google.com/store/apps/details?id=air.com.ssdsoftware.clickuz" },
-      { label: "Website", url: "https://click.uz" },
+      { label: "iOS", url: "https://apps.apple.com/us/app/align-360/id1608045052" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.align360" },
+    ],
+  },
+  {
+    name: "HeyAll",
+    description:
+      "Event planning app connecting hosts with suppliers seamlessly — plan events on one side, manage supply services on the other.",
+    tech: ["React Native", "React", "Redux", "Git"],
+    type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/us/app/heyall/id1590498767" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.app.heyall" },
+      { label: "Website", url: "https://www.heyallapp.com/" },
     ],
   },
   {
@@ -153,7 +141,21 @@ export const projects: Project[] = [
     tech: ["React Native", "GraphQL", "Redux Saga", "Google Maps"],
     type: "mobile",
     links: [
-      { label: "Website", url: "https://workaxle.com" },
+      { label: "iOS", url: "https://apps.apple.com/us/app/workaxle/id1313407282" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.workaxle.employee" },
+      { label: "Website", url: "https://www.workaxle.com/" },
+    ],
+  },
+  {
+    name: "BrainWake Alarm Clock",
+    description:
+      "Educational alarm app that wakes your brain by teaching vocabulary, general knowledge, and math skills every morning.",
+    tech: ["React Native", "Redux", "Custom Navigation"],
+    type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/us/app/brainwake-alarm-clock/id1563821774" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=brain.wake.alarm" },
+      { label: "Website", url: "https://brainwake.app/" },
     ],
   },
   {
@@ -163,30 +165,182 @@ export const projects: Project[] = [
     tech: ["React Native", "React", "Redux", "Yandex Maps"],
     type: "mobile",
     links: [
-      { label: "iOS", url: "https://apps.apple.com/app/asia-insurance/id1491584498" },
-      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.asiainsurance.app" },
-      { label: "Website", url: "https://asiainsurance.uz" },
+      { label: "iOS", url: "https://apps.apple.com/bz/app/asia-insurance/id1541470822" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.asia_insurance" },
+      { label: "Website", url: "https://asiainsurance.uz/" },
+    ],
+  },
+  {
+    name: "Snap Taxi",
+    description:
+      "Ride-hailing and courier delivery app — enter your address, a courier picks up and delivers your item door-to-door.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/bz/app/snap-taxi/id1544768478" },
+    ],
+  },
+  {
+    name: "MyDesign",
+    description:
+      "Fashion design app where users select clothing patterns, choose colors, and add textile patterns to create custom looks. Supports uploading custom textile designs.",
+    tech: ["React Native", "SVG", "Redux"],
+    type: "mobile",
+    links: [
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.branchenterprises.mydesign.andr" },
+    ],
+  },
+  {
+    name: "NAFT",
+    description:
+      "Job marketplace app — a pocket source of quick and convenient candidates and offers where each user can find what they need.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/us/app/naft/id1519755756" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=itmaker.uz.naft" },
+    ],
+  },
+  {
+    name: "Seyf Bazar",
+    description:
+      "Large online store in Tashkent — electronics, household appliances, smartphones, and gadgets with delivery across Uzbekistan.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/us/app/seyfbazar/id1511149101" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.itmaker.seyfbazar" },
+    ],
+  },
+  {
+    name: "Bozorlik",
+    description:
+      "Online marketplace for buying products at market prices from home — track products and make easy purchases via mobile.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+    links: [
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.yuz1app" },
+    ],
+  },
+  {
+    name: "ASCON",
+    description:
+      "Express payment processing app — receive damages payments quickly without running around government instances.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/uz/app/ascon/id1501017855" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.ascon.client" },
+    ],
+  },
+  {
+    name: "BDM",
+    description:
+      "Digital document signing system — each document is signed through BDM, gaining legal force for official business use.",
+    tech: ["React Native", "Redux Saga", "Formik"],
+    type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/uz/app/bdm/id1506887882" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.bdm" },
     ],
   },
   {
     name: "EDOCS.UZ",
     description:
-      "Legally significant electronic document management system for invoices, delivery notes, and business documents.",
-    tech: ["React Native", "Redux Saga", "TypeScript"],
+      "Legally significant electronic document management system for generating invoices, delivery notes, and acts in electronic form.",
+    tech: ["React Native", "Redux Saga", "Google Maps"],
     type: "mobile",
     links: [
-      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.edocs.mobile" },
-      { label: "Website", url: "https://edocs.uz" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.edocs.app" },
     ],
   },
   {
-    name: "BrainWake Alarm Clock",
+    name: "Primus Mall",
     description:
-      "Educational alarm app that wakes your brain by teaching vocabulary, general knowledge, and math skills every morning.",
-    tech: ["React Native", "React", "Redux", "Custom Navigation"],
+      "Diverse online shopping platform — purchase goods from multiple brands without leaving your home, with delivery across Uzbekistan.",
+    tech: ["React Native", "Google Maps", "Redux"],
     type: "mobile",
     links: [
-      { label: "Website", url: "https://brainwake.app" },
+      { label: "iOS", url: "https://apps.apple.com/uz/app/primus-mall/id1498314257" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.primusmall.app" },
+    ],
+  },
+  {
+    name: "Avtogen.uz",
+    description:
+      "Search and order queue car washes across Uzbekistan — find nearby locations and book your slot instantly.",
+    tech: ["React Native", "Google Maps", "Redux"],
+    type: "mobile",
+  },
+  // ── Web Apps ──
+  {
+    name: "Nexus",
+    description:
+      "Crypto portfolio platform providing access to 200+ digital assets with themed portfolios and blockchain wallet integration.",
+    tech: ["Svelte", "React", "Redux", "Git"],
+    type: "web",
+    links: [
+      { label: "Website", url: "https://www.projectnexus.app/" },
+    ],
+  },
+  {
+    name: "Nestegg.ai",
+    description:
+      "UK fintech platform matching borrowers with responsible lenders using credit, banking, and alternative data analysis.",
+    tech: ["React", "Redux", "TypeScript"],
+    type: "web",
+    links: [
+      { label: "Website", url: "https://nestegg.ai/" },
+    ],
+  },
+  {
+    name: "Nestegg Loan",
+    description:
+      "Loan matching platform — find the right loan from the right lender, check acceptance odds, and get tips on how to qualify.",
+    tech: ["React", "Redux", "TypeScript"],
+    type: "web",
+    links: [
+      { label: "Website", url: "https://loans.nestegg.ai/" },
+    ],
+  },
+  {
+    name: "WorkAxle Web",
+    description:
+      "Modern enterprise Workforce Management platform — extensible, futureproof, and quickly deployable at scale for enterprise customers.",
+    tech: ["React", "Redux", "Git"],
+    type: "web",
+    links: [
+      { label: "Website", url: "https://www.workaxle.com/" },
+    ],
+  },
+  {
+    name: "BrainWake Web",
+    description:
+      "Web version of the BrainWake Alarm Clock — expand vocabulary, improve general knowledge, and refine math skills daily.",
+    tech: ["React", "Git"],
+    type: "web",
+    links: [
+      { label: "Website", url: "https://brainwake.app/" },
+    ],
+  },
+  {
+    name: "Asia Insurance Web",
+    description:
+      "Web platform for buying OSGO vehicle policies and travel insurance online in just minutes.",
+    tech: ["React", "Redux", "Google Maps", "Yandex Maps"],
+    type: "web",
+    links: [
+      { label: "Website", url: "https://asiainsurance.uz/" },
+    ],
+  },
+  {
+    name: "HeyAll Web",
+    description:
+      "Web platform connecting event hosts with suppliers — plan events and manage services in one place.",
+    tech: ["React", "Redux", "Git"],
+    type: "web",
+    links: [
+      { label: "Website", url: "https://www.heyallapp.com/" },
     ],
   },
 ];

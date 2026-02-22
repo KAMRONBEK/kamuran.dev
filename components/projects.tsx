@@ -1,14 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/lib/data";
 import { SectionHeading } from "./section-heading";
-import { StaggerContainer, StaggerItem } from "./animation";
 import { useParallax } from "./parallax-provider";
+
+type Filter = "all" | "mobile" | "web";
 
 export function Projects() {
   const orb = useParallax(30);
   const cards = useParallax(4);
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const filtered = filter === "all" ? projects : projects.filter((p) => p.type === filter);
+  const mobileCount = projects.filter((p) => p.type === "mobile").length;
+  const webCount = projects.filter((p) => p.type === "web").length;
+
+  const filters: { key: Filter; label: string }[] = [
+    { key: "all", label: `All (${projects.length})` },
+    { key: "mobile", label: `Mobile (${mobileCount})` },
+    { key: "web", label: `Web (${webCount})` },
+  ];
 
   return (
     <section id="projects" className="relative overflow-hidden px-6 py-24 md:py-32">
@@ -20,64 +33,91 @@ export function Projects() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           title="Projects"
-          subtitle="A curated selection from 20+ shipped applications"
+          subtitle="All shipped applications — mobile and web"
         />
 
-        <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <StaggerItem key={project.name}>
-              <motion.div style={{ x: cards.x, y: cards.y }} className="h-full">
-                <div className="group relative flex h-full flex-col rounded-2xl border border-card-border bg-card p-6 transition-all hover:border-accent-violet/30 hover:shadow-lg hover:shadow-accent-violet/5">
-                  <span
-                    className={`mb-4 inline-flex w-fit rounded-full px-3 py-1 text-xs font-medium ${
-                      project.type === "mobile"
-                        ? "bg-accent-cyan/10 text-accent-cyan"
-                        : "bg-accent-violet/10 text-accent-violet"
-                    }`}
-                  >
-                    {project.type === "mobile" ? "Mobile App" : "Web App"}
-                  </span>
+        {/* Filter tabs */}
+        <div className="mb-10 flex justify-center gap-2">
+          {filters.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
+                filter === f.key
+                  ? "bg-gradient-to-r from-accent-cyan to-accent-violet text-white"
+                  : "border border-card-border text-muted hover:border-accent-cyan/30 hover:text-foreground"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
 
-                  <h3 className="mb-2 text-lg font-semibold text-foreground transition-colors group-hover:text-accent-cyan">
-                    {project.name}
-                  </h3>
+        {/* Grid */}
+        <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project) => (
+              <motion.div
+                key={project.name}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.div style={{ x: cards.x, y: cards.y }} className="h-full">
+                  <div className="group relative flex h-full flex-col rounded-2xl border border-card-border bg-card p-6 transition-all hover:border-accent-violet/30 hover:shadow-lg hover:shadow-accent-violet/5">
+                    <span
+                      className={`mb-4 inline-flex w-fit rounded-full px-3 py-1 text-xs font-medium ${
+                        project.type === "mobile"
+                          ? "bg-accent-cyan/10 text-accent-cyan"
+                          : "bg-accent-violet/10 text-accent-violet"
+                      }`}
+                    >
+                      {project.type === "mobile" ? "Mobile App" : "Web App"}
+                    </span>
 
-                  <p className="mb-4 flex-1 text-sm leading-relaxed text-muted">
-                    {project.description}
-                  </p>
+                    <h3 className="mb-2 text-lg font-semibold text-foreground transition-colors group-hover:text-accent-cyan">
+                      {project.name}
+                    </h3>
 
-                  <div className="mb-4 flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-card-border bg-background px-2.5 py-0.5 text-xs text-muted"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                    <p className="mb-4 flex-1 text-sm leading-relaxed text-muted">
+                      {project.description}
+                    </p>
 
-                  {project.links && project.links.length > 0 && (
-                    <div className="flex flex-wrap gap-3 border-t border-card-border pt-4">
-                      {project.links.map((link) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-medium text-accent-cyan transition-colors hover:text-foreground"
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full border border-card-border bg-background px-2.5 py-0.5 text-xs text-muted"
                         >
-                          <LinkIcon type={link.label} />
-                          {link.label}
-                        </a>
+                          {t}
+                        </span>
                       ))}
                     </div>
-                  )}
-                </div>
+
+                    {project.links && project.links.length > 0 && (
+                      <div className="flex flex-wrap gap-3 border-t border-card-border pt-4">
+                        {project.links.map((link) => (
+                          <a
+                            key={link.url}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-accent-cyan transition-colors hover:text-foreground"
+                          >
+                            <LinkIcon type={link.label} />
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
               </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
