@@ -1,3 +1,4 @@
+import { ParallaxProvider } from "@/components/parallax-provider";
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
@@ -8,7 +9,7 @@ import { Contact } from "@/components/contact";
 
 export default function Home() {
   return (
-    <>
+    <ParallaxProvider>
       <Navbar />
       <main>
         <Hero />
@@ -18,6 +19,6 @@ export default function Home() {
         <Skills />
         <Contact />
       </main>
-    </>
+    </ParallaxProvider>
   );
 }

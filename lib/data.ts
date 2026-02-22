@@ -98,6 +98,7 @@ export interface Project {
   description: string;
   tech: string[];
   type: "mobile" | "web";
+  links?: { label: string; url: string }[];
 }
 
 export const projects: Project[] = [
@@ -107,6 +108,10 @@ export const projects: Project[] = [
       "Cross-platform sports and social mobile applications with real-time chat, in-app purchases, and rich media features.",
     tech: ["React Native", "GraphQL", "Sendbird", "TypeScript"],
     type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/app/vbrato/id6467449182" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.vbrato" },
+    ],
   },
   {
     name: "Nexus",
@@ -114,6 +119,9 @@ export const projects: Project[] = [
       "Crypto portfolio platform providing access to 200+ digital assets with themed portfolios and blockchain wallet integration.",
     tech: ["Svelte", "React", "Blockchain", "TypeScript"],
     type: "web",
+    links: [
+      { label: "Website", url: "https://projectnexus.io" },
+    ],
   },
   {
     name: "Nestegg.ai",
@@ -121,6 +129,9 @@ export const projects: Project[] = [
       "UK fintech platform matching borrowers with responsible lenders using credit, banking, and alternative data analysis.",
     tech: ["React", "Redux", "TypeScript", "REST APIs"],
     type: "web",
+    links: [
+      { label: "Website", url: "https://nestegg.ai" },
+    ],
   },
   {
     name: "CLICK Uzbekistan",
@@ -128,6 +139,11 @@ export const projects: Project[] = [
       "One of Uzbekistan's leading mobile payment platforms — millions of daily transactions across iOS and Android.",
     tech: ["React Native", "Redux", "CI/CD", "JavaScript"],
     type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/app/click-uz/id976439498" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=air.com.ssdsoftware.clickuz" },
+      { label: "Website", url: "https://click.uz" },
+    ],
   },
   {
     name: "WorkAxle",
@@ -135,6 +151,9 @@ export const projects: Project[] = [
       "Enterprise workforce management platform with live scheduling, team communication, and job search features.",
     tech: ["React Native", "GraphQL", "Redux Saga", "Google Maps"],
     type: "mobile",
+    links: [
+      { label: "Website", url: "https://workaxle.com" },
+    ],
   },
   {
     name: "Asia Insurance",
@@ -142,6 +161,11 @@ export const projects: Project[] = [
       "Insurance platform enabling instant OSGO policy purchases and travel insurance for vehicle owners and travelers.",
     tech: ["React Native", "React", "Redux", "Yandex Maps"],
     type: "mobile",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/app/asia-insurance/id1491584498" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.asiainsurance.app" },
+      { label: "Website", url: "https://asiainsurance.uz" },
+    ],
   },
   {
     name: "EDOCS.UZ",
@@ -149,6 +173,10 @@ export const projects: Project[] = [
       "Legally significant electronic document management system for invoices, delivery notes, and business documents.",
     tech: ["React Native", "Redux Saga", "TypeScript"],
     type: "mobile",
+    links: [
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.edocs.mobile" },
+      { label: "Website", url: "https://edocs.uz" },
+    ],
   },
   {
     name: "BrainWake Alarm Clock",
@@ -156,6 +184,9 @@ export const projects: Project[] = [
       "Educational alarm app that wakes your brain by teaching vocabulary, general knowledge, and math skills every morning.",
     tech: ["React Native", "React", "Redux", "Custom Navigation"],
     type: "mobile",
+    links: [
+      { label: "Website", url: "https://brainwake.app" },
+    ],
   },
 ];
 

@@ -1,48 +1,24 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { personalInfo } from "@/lib/data";
+import { useParallax } from "./parallax-provider";
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 25, stiffness: 120 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-
-  const orbX1 = useTransform(smoothX, [-0.5, 0.5], [60, -60]);
-  const orbY1 = useTransform(smoothY, [-0.5, 0.5], [60, -60]);
-  const orbX2 = useTransform(smoothX, [-0.5, 0.5], [-50, 50]);
-  const orbY2 = useTransform(smoothY, [-0.5, 0.5], [-50, 50]);
-
-  const textX = useTransform(smoothX, [-0.5, 0.5], [12, -12]);
-  const textY = useTransform(smoothY, [-0.5, 0.5], [12, -12]);
-  const subtitleX = useTransform(smoothX, [-0.5, 0.5], [6, -6]);
-  const subtitleY = useTransform(smoothY, [-0.5, 0.5], [6, -6]);
-
-  function handleMouseMove(e: React.MouseEvent) {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  }
+  const orb1 = useParallax(40);
+  const orb2 = useParallax(-30);
+  const heading = useParallax(12);
+  const subtitle = useParallax(6);
 
   return (
-    <section
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      className="dot-pattern relative flex min-h-screen items-center justify-center overflow-hidden px-6"
-    >
+    <section className="dot-pattern relative flex min-h-screen items-center justify-center overflow-hidden px-6">
       {/* Parallax gradient orbs */}
       <motion.div
-        style={{ x: orbX1, y: orbY1 }}
+        style={{ x: orb1.x, y: orb1.y }}
         className="pointer-events-none absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-accent-cyan/10 blur-[120px]"
       />
       <motion.div
-        style={{ x: orbX2, y: orbY2 }}
+        style={{ x: orb2.x, y: orb2.y }}
         className="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-accent-violet/10 blur-[120px]"
       />
 
@@ -59,7 +35,7 @@ export function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          style={{ x: textX, y: textY }}
+          style={{ x: heading.x, y: heading.y }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="gradient-text mb-4 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
         >
@@ -69,7 +45,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          style={{ x: subtitleX, y: subtitleY }}
+          style={{ x: subtitle.x, y: subtitle.y }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8 text-lg text-muted sm:text-xl md:text-2xl"
         >
@@ -109,27 +85,10 @@ export function Hero() {
             className="flex flex-col items-center gap-2"
           >
             <span className="text-xs text-muted">Scroll</span>
-            <svg
-              width="16"
-              height="24"
-              viewBox="0 0 16 24"
-              fill="none"
-              className="text-muted"
-            >
-              <rect
-                x="1"
-                y="1"
-                width="14"
-                height="22"
-                rx="7"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
+            <svg width="16" height="24" viewBox="0 0 16 24" fill="none" className="text-muted">
+              <rect x="1" y="1" width="14" height="22" rx="7" stroke="currentColor" strokeWidth="1.5" />
               <motion.circle
-                cx="8"
-                cy="8"
-                r="2"
-                fill="currentColor"
+                cx="8" cy="8" r="2" fill="currentColor"
                 animate={{ cy: [8, 14, 8] }}
                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
               />
