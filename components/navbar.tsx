@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navLinks } from "@/lib/data";
+import { navLinks, personalInfo } from "@/lib/data";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -42,6 +42,19 @@ export function Navbar() {
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href={personalInfo.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-9 items-center gap-1.5 rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              Resume
+            </a>
+          </li>
         </ul>
 
         {/* Mobile toggle */}
@@ -90,6 +103,24 @@ export function Navbar() {
                     </a>
                   </motion.li>
                 ))}
+                <motion.li
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: navLinks.length * 0.1 }}
+                >
+                  <a
+                    href={personalInfo.resume}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileOpen(false)}
+                    className="inline-flex items-center gap-2 text-2xl font-medium text-accent-cyan transition-colors hover:text-foreground"
+                  >
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                    Resume
+                  </a>
+                </motion.li>
               </ul>
             </motion.div>
           )}

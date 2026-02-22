@@ -6,6 +6,7 @@ export const personalInfo = {
   location: "Tashkent, Uzbekistan",
   github: "https://github.com/KAMRONBEK",
   linkedin: "https://linkedin.com/in/kamronbek-juraev",
+  resume: "https://docs.google.com/document/d/1dBnvGtI7UEleFq-Jv60nFjxC3LGRG1p10vhQYkVnHyI/export?format=pdf",
   summary:
     "Software developer with 6+ years of experience building cross-platform mobile and web applications. Shipped 20+ production apps across fintech, e-commerce, insurance, and logistics. CS graduate from Inha University with a passion for clean architecture and performant UIs.",
 } as const;
