@@ -1,20 +1,44 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { experiences } from "@/lib/data";
 import { SectionHeading } from "./section-heading";
-import { FadeIn } from "./animation";
 import { useParallax } from "./parallax-provider";
+import { TiltCard } from "./tilt-card";
+
+function TimelineNode({ index }: { index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <div ref={ref} className={`absolute top-2 hidden h-4 w-4 md:block ${
+      index % 2 === 0 ? "-right-2" : "-left-2"
+    }`}>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={inView ? { scale: 1 } : {}}
+        transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.2 }}
+        className="h-full w-full rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet timeline-node-pulse"
+      />
+    </div>
+  );
+}
 
 export function Experience() {
   const orb = useParallax(-20);
-  const cards = useParallax(5);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"],
+  });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <section id="experience" className="relative overflow-hidden px-6 py-24 md:py-32">
       <motion.div
         style={{ x: orb.x, y: orb.y }}
-        className="pointer-events-none absolute -left-60 top-1/3 h-[400px] w-[400px] rounded-full bg-accent-violet/5 blur-[100px]"
+        className="pointer-events-none absolute -left-60 top-1/3 h-[400px] w-[400px] rounded-full bg-accent-violet/8 blur-[100px]"
       />
 
       <div className="mx-auto max-w-4xl">
@@ -23,32 +47,40 @@ export function Experience() {
           subtitle="6+ years of building production-grade applications"
         />
 
-        <div className="relative">
-          <div className="absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-accent-cyan via-accent-violet to-transparent md:left-1/2 md:block md:-translate-x-px" />
+        <div ref={containerRef} className="relative">
+          {/* Static track */}
+          <div className="absolute left-0 top-0 hidden h-full w-px bg-card-border md:left-1/2 md:block md:-translate-x-px" />
+          {/* Animated fill */}
+          <motion.div
+            style={{ height: lineHeight }}
+            className="absolute left-0 top-0 hidden w-px bg-gradient-to-b from-accent-cyan via-accent-violet to-accent-cyan md:left-1/2 md:block md:-translate-x-px"
+          />
 
           {experiences.map((exp, i) => (
-            <FadeIn key={exp.company} delay={i * 0.1}>
+            <motion.div
+              key={exp.company}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div
                 className={`relative mb-12 md:mb-16 md:w-1/2 ${
                   i % 2 === 0 ? "md:pr-12" : "md:ml-auto md:pl-12"
                 }`}
               >
-                <div
-                  className={`absolute top-2 hidden h-3 w-3 rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet md:block ${
-                    i % 2 === 0 ? "-right-1.5" : "-left-1.5"
-                  }`}
-                />
+                <TimelineNode index={i} />
 
-                <motion.div style={{ x: cards.x, y: cards.y }}>
-                  <div className="rounded-2xl border border-card-border bg-card p-6 transition-all hover:border-accent-cyan/30 hover:shadow-lg hover:shadow-accent-cyan/5">
+                <TiltCard>
+                  <div className="rounded-2xl border border-card-border bg-card p-6 transition-all duration-300 hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10">
                     <p className="mb-1 font-mono text-xs text-accent-cyan">{exp.period}</p>
                     <h3 className="text-lg font-semibold text-foreground">{exp.company}</h3>
-                    <p className="mb-3 text-sm text-muted">{exp.role}</p>
+                    <p className="mb-3 text-sm text-accent-violet">{exp.role}</p>
 
                     <ul className="mb-4 space-y-1.5">
                       {exp.highlights.map((h) => (
                         <li key={h} className="flex items-start gap-2 text-sm text-muted">
-                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-violet" />
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet" />
                           {h}
                         </li>
                       ))}
@@ -58,16 +90,16 @@ export function Experience() {
                       {exp.skills.map((skill) => (
                         <span
                           key={skill}
-                          className="rounded-full border border-card-border bg-background px-2.5 py-0.5 text-xs text-muted"
+                          className="rounded-full border border-card-border bg-background px-2.5 py-0.5 text-xs text-muted transition-colors hover:border-accent-cyan/40 hover:text-accent-cyan"
                         >
                           {skill}
                         </span>
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </TiltCard>
               </div>
-            </FadeIn>
+            </motion.div>
           ))}
         </div>
       </div>

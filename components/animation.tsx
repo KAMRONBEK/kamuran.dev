@@ -12,10 +12,25 @@ interface AnimationProps extends HTMLMotionProps<"div"> {
 export function FadeIn({ children, delay = 0, className, ...props }: AnimationProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function BlurIn({ children, delay = 0, className, ...props }: AnimationProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
       {...props}
     >
@@ -28,16 +43,16 @@ export function SlideIn({
   children,
   delay = 0,
   className,
+  direction = "left",
   ...props
 }: AnimationProps & { direction?: "left" | "right" }) {
-  const direction = (props as { direction?: string }).direction ?? "left";
-  const x = direction === "left" ? -40 : 40;
+  const x = direction === "left" ? -60 : 60;
   return (
     <motion.div
       initial={{ opacity: 0, x }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -48,10 +63,10 @@ export function SlideIn({
 export function ScaleIn({ children, delay = 0, className, ...props }: AnimationProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.4, delay, ease: "easeOut" }}
+      initial={{ opacity: 0, scale: 0.85, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
       {...props}
     >
@@ -65,9 +80,9 @@ export function StaggerContainer({ children, className }: { children: ReactNode;
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "-80px" }}
       variants={{
-        visible: { transition: { staggerChildren: 0.1 } },
+        visible: { transition: { staggerChildren: 0.08 } },
       }}
       className={className}
     >
@@ -80,8 +95,13 @@ export function StaggerItem({ children, className }: { children: ReactNode; clas
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+        hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+        visible: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+        },
       }}
       className={className}
     >

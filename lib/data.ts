@@ -2,7 +2,6 @@ export const personalInfo = {
   name: "Kamronbek Juraev",
   title: "React Native / React Developer",
   email: "kamuranbek1998@gmail.com",
-  phone: "+998 93 689 3665",
   location: "Tashkent, Uzbekistan",
   github: "https://github.com/KAMRONBEK",
   linkedin: "https://linkedin.com/in/kamronbek-juraev",
@@ -15,7 +14,7 @@ export const stats = [
   { label: "Years Experience", value: "6+" },
   { label: "Apps Shipped", value: "20+" },
   { label: "Companies", value: "6" },
-  { label: "Platforms", value: "iOS, Android, Web" },
+  { label: "Platforms", value: "3" },
 ] as const;
 
 export interface Experience {
@@ -72,16 +71,6 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    company: "Ipak Yuli Bank",
-    role: "Mobile Developer",
-    period: "Jun 2020 — Nov 2020",
-    skills: ["React Native", "JavaScript", "REST APIs"],
-    highlights: [
-      "Developed and maintained the bank's mobile application",
-      "Implemented security features and optimized app performance",
-    ],
-  },
-  {
     company: "CLICK Uzbekistan",
     role: "Frontend & Mobile Developer",
     period: "Mar 2019 — May 2021",
@@ -107,25 +96,53 @@ export interface Project {
 export const projects: Project[] = [
   // ── Mobile Apps ──
   {
+    name: "Truck Me",
+    description:
+      "Truck services finder app — quickly locate trusted truck repairs, maintenance, and funding solutions nearby with 24/7 support.",
+    tech: ["React Native", "Google Maps", "TypeScript"],
+    type: "mobile",
+    image: "/projects/truckme.jpg",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/us/app/truck-me/id6754442584" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.truckme" },
+    ],
+  },
+  {
     name: "Netevia",
     description:
       "Online banking mobile application providing seamless digital banking experiences — account management, transactions, and financial services on the go.",
     tech: ["React Native", "TypeScript", "REST APIs"],
     type: "mobile",
+    image: "/projects/netevia.jpg",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/us/app/netevia/id1625351334" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.neteviacard.card" },
+      { label: "Website", url: "https://netevia.com/" },
+    ],
   },
   {
     name: "DriveMe",
     description:
-      "Ride-hailing passenger app — request rides, track your driver in real time, and pay seamlessly through the app.",
+      "Premium chauffeur service app — book comfortable rides with professional drivers, track vehicles on the map, and choose from Business, Premium, or Minivan categories.",
     tech: ["React Native", "Google Maps", "Redux"],
     type: "mobile",
+    image: "/projects/driveme.jpg",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/uz/app/driveme-elite/id6757360912" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.poizn.DriveMe" },
+    ],
   },
   {
     name: "DriveMe Driver",
     description:
-      "Driver-side companion app for the DriveMe platform — accept ride requests, navigate to passengers, and manage earnings.",
+      "Driver-side app for the DriveMe premium platform — accept ride requests, view routes and passenger details, and manage trips with a clean intuitive interface.",
     tech: ["React Native", "Google Maps", "Redux"],
     type: "mobile",
+    image: "/projects/driveme-driver.jpg",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/uz/app/driveme-driver/id6757392657" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.driveme.driver" },
+    ],
   },
   {
     name: "VBrato & SwishSportsApp",
@@ -133,6 +150,12 @@ export const projects: Project[] = [
       "Cross-platform sports and social mobile applications with real-time chat, in-app purchases, and rich media features.",
     tech: ["React Native", "GraphQL", "Sendbird", "TypeScript"],
     type: "mobile",
+    image: "/projects/swish.jpg",
+    links: [
+      { label: "iOS", url: "https://apps.apple.com/us/app/swish-sports/id1551295361" },
+      { label: "Android (Swish)", url: "https://play.google.com/store/apps/details?id=co.lincolnlabs.swish" },
+      { label: "Android (VBrato)", url: "https://play.google.com/store/apps/details?id=io.vbrato.mobile" },
+    ],
   },
   {
     name: "Align 360",
@@ -151,6 +174,7 @@ export const projects: Project[] = [
       "Event planning app connecting hosts with suppliers seamlessly — plan events on one side, manage supply services on the other.",
     tech: ["React Native", "React", "Redux", "Git"],
     type: "mobile",
+    image: "/projects/heyall.jpg",
     links: [
       { label: "iOS", url: "https://apps.apple.com/us/app/heyall/id1590498767" },
       { label: "Android", url: "https://play.google.com/store/apps/details?id=com.app.heyall" },
@@ -163,6 +187,7 @@ export const projects: Project[] = [
       "Enterprise workforce management platform with live scheduling, team communication, and job search features.",
     tech: ["React Native", "GraphQL", "Redux Saga", "Google Maps"],
     type: "mobile",
+    image: "/projects/workaxle.jpg",
     links: [
       { label: "iOS", url: "https://apps.apple.com/us/app/workaxle/id1313407282" },
       { label: "Android", url: "https://play.google.com/store/apps/details?id=com.workaxle.employee" },
@@ -251,9 +276,10 @@ export const projects: Project[] = [
       "Express payment processing app — receive damages payments quickly without running around government instances.",
     tech: ["React Native", "Google Maps", "Redux"],
     type: "mobile",
+    image: "/projects/ascon.jpg",
     links: [
-      { label: "iOS", url: "https://apps.apple.com/uz/app/ascon/id1501017855" },
-      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.ascon.client" },
+      { label: "iOS", url: "https://apps.apple.com/uz/app/ascon/id1613704743" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.sos.ascon" },
     ],
   },
   {
@@ -262,6 +288,7 @@ export const projects: Project[] = [
       "Digital document signing system — each document is signed through BDM, gaining legal force for official business use.",
     tech: ["React Native", "Redux Saga", "Formik"],
     type: "mobile",
+    image: "/projects/bdm.jpg",
     links: [
       { label: "iOS", url: "https://apps.apple.com/uz/app/bdm/id1506887882" },
       { label: "Android", url: "https://play.google.com/store/apps/details?id=com.bdm" },
@@ -273,8 +300,10 @@ export const projects: Project[] = [
       "Legally significant electronic document management system for generating invoices, delivery notes, and acts in electronic form.",
     tech: ["React Native", "Redux Saga", "Google Maps"],
     type: "mobile",
+    image: "/projects/edocs.jpg",
     links: [
-      { label: "Android", url: "https://play.google.com/store/apps/details?id=uz.edocs.app" },
+      { label: "iOS", url: "https://apps.apple.com/kz/app/edocs-uz/id6754750404" },
+      { label: "Android", url: "https://play.google.com/store/apps/details?id=com.odiljondevfront.edocsmobile" },
     ],
   },
   {
@@ -312,6 +341,7 @@ export const projects: Project[] = [
       "UK fintech platform matching borrowers with responsible lenders using credit, banking, and alternative data analysis.",
     tech: ["React", "Redux", "TypeScript"],
     type: "web",
+    image: "/projects/nestegg.jpg",
     links: [
       { label: "Website", url: "https://nestegg.ai/" },
     ],
@@ -332,6 +362,7 @@ export const projects: Project[] = [
       "Modern enterprise Workforce Management platform — extensible, futureproof, and quickly deployable at scale for enterprise customers.",
     tech: ["React", "Redux", "Git"],
     type: "web",
+    image: "/projects/workaxle.jpg",
     links: [
       { label: "Website", url: "https://www.workaxle.com/" },
     ],
@@ -371,19 +402,58 @@ export const projects: Project[] = [
 export const skillCategories = [
   {
     name: "Mobile",
-    skills: ["React Native", "Expo", "iOS", "Android"],
+    skills: [
+      "React Native", "Expo", "iOS", "Android",
+      "EAS Build", "EAS Submit", "EAS Update",
+      "Offline-First / Local Storage", "Background Tracking",
+      "Bluetooth & BLE", "Native Modules & Bridging",
+      "Push Notifications", "Deep Linking", "CodePush / OTA",
+      "App Store & Play Store Publishing",
+    ],
   },
   {
     name: "Frontend",
-    skills: ["React.js", "Next.js", "Svelte", "HTML/CSS"],
+    skills: [
+      "React.js", "Next.js", "Svelte", "HTML/CSS",
+      "Tailwind CSS", "Framer Motion",
+    ],
   },
   {
     name: "Languages",
-    skills: ["TypeScript", "JavaScript", "Node.js"],
+    skills: ["TypeScript", "JavaScript", "Kotlin", "Swift", "Node.js", "Python"],
   },
   {
-    name: "Tools & Services",
-    skills: ["Firebase", "Apollo GraphQL", "Redux", "REST APIs", "Git", "Jest", "CI/CD"],
+    name: "State Management",
+    skills: ["Redux", "Context API", "Zustand", "Jotai", "MobX"],
+  },
+  {
+    name: "APIs & Real-time",
+    skills: [
+      "REST APIs", "Apollo GraphQL", "WebSockets",
+      "Sendbird Chat",
+    ],
+  },
+  {
+    name: "Maps & Location",
+    skills: ["Google Maps", "Yandex Maps", "Geolocation", "Background Location", "Geofencing"],
+  },
+  {
+    name: "Backend & Cloud",
+    skills: [
+      "Firebase", "Cloud Firestore", "Supabase",
+      "PostgreSQL", "MongoDB",
+    ],
+  },
+  {
+    name: "Testing & Quality",
+    skills: ["Jest", "React Testing Library", "Detox", "Maestro", "Code Review"],
+  },
+  {
+    name: "DevOps & Tools",
+    skills: [
+      "Git", "GitHub Actions", "Bitbucket", "Azure DevOps",
+      "CI/CD", "Fastlane", "Docker", "Figma", "Jira",
+    ],
   },
 ] as const;
 

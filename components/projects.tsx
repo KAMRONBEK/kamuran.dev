@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { projects, type Project } from "@/lib/data";
 import { SectionHeading } from "./section-heading";
 import { useParallax } from "./parallax-provider";
+import { TiltCard } from "./tilt-card";
 
 type Filter = "all" | "mobile" | "web";
 
@@ -42,7 +43,6 @@ function getInitials(name: string) {
 
 export function Projects() {
   const orb = useParallax(30);
-  const cards = useParallax(4);
   const [filter, setFilter] = useState<Filter>("all");
 
   const filtered = filter === "all" ? projects : projects.filter((p) => p.type === filter);
@@ -56,13 +56,13 @@ export function Projects() {
   ];
 
   return (
-    <section id="projects" className="relative overflow-hidden px-6 py-24 md:py-32">
+    <section id="projects" className="grid-bg relative overflow-hidden px-6 py-24 md:py-32">
       <motion.div
         style={{ x: orb.x, y: orb.y }}
-        className="pointer-events-none absolute -right-40 bottom-20 h-[400px] w-[400px] rounded-full bg-accent-violet/5 blur-[100px]"
+        className="pointer-events-none absolute -right-40 bottom-20 h-[400px] w-[400px] rounded-full bg-accent-violet/8 blur-[100px]"
       />
 
-      <div className="mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-6xl">
         <SectionHeading
           title="Projects"
           subtitle="All shipped applications — mobile and web"
@@ -75,7 +75,7 @@ export function Projects() {
               onClick={() => setFilter(f.key)}
               className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
                 filter === f.key
-                  ? "bg-gradient-to-r from-accent-cyan to-accent-violet text-white"
+                  ? "btn-glow bg-gradient-to-r from-accent-cyan to-accent-violet text-white"
                   : "border border-card-border text-muted hover:border-accent-cyan/30 hover:text-foreground"
               }`}
             >
@@ -87,7 +87,7 @@ export function Projects() {
         <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
-              <ProjectCard key={project.name} project={project} index={i} cards={cards} />
+              <ProjectCard key={project.name} project={project} index={i} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -99,11 +99,9 @@ export function Projects() {
 function ProjectCard({
   project,
   index,
-  cards,
 }: {
   project: Project;
   index: number;
-  cards: { x: ReturnType<typeof useParallax>["x"]; y: ReturnType<typeof useParallax>["y"] };
 }) {
   const grad = gradients[index % gradients.length];
   const iconColor = iconColors[index % iconColors.length];
@@ -111,28 +109,29 @@ function ProjectCard({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 60, filter: "blur(8px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.5, delay: index * 0.03 }}
     >
-      <motion.div style={{ x: cards.x, y: cards.y }} className="h-full">
-        <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-card-border bg-card transition-all hover:border-accent-violet/30 hover:shadow-lg hover:shadow-accent-violet/5">
-          {/* Image / Visual Header */}
+      <TiltCard className="h-full">
+        <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-card-border bg-card transition-all duration-300 hover:border-accent-violet/40 hover:shadow-lg hover:shadow-accent-violet/10">
           <div
             className={`relative flex h-40 items-center justify-center bg-gradient-to-br ${grad} overflow-hidden`}
           >
             <div className="absolute inset-0 dot-pattern opacity-40" />
 
             {project.image ? (
-              <img
-                src={project.image}
-                alt={project.name}
-                className="h-full w-full object-cover"
-              />
+              <div className="relative flex items-center justify-center py-4">
+                <img
+                  src={project.image}
+                  alt={project.name}
+                  className="h-24 w-24 rounded-2xl object-cover shadow-lg ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
             ) : (
               <div className="relative flex items-center gap-3">
-                <span className={`text-5xl font-bold opacity-80 ${iconColor}`}>
+                <span className={`text-5xl font-bold opacity-80 transition-transform duration-300 group-hover:scale-110 ${iconColor}`}>
                   {getInitials(project.name)}
                 </span>
                 <div className={`${iconColor} opacity-60`}>
@@ -152,7 +151,6 @@ function ProjectCard({
             </span>
           </div>
 
-          {/* Content */}
           <div className="flex flex-1 flex-col p-5">
             <h3 className="mb-2 text-lg font-semibold text-foreground transition-colors group-hover:text-accent-cyan">
               {project.name}
@@ -191,7 +189,7 @@ function ProjectCard({
             )}
           </div>
         </div>
-      </motion.div>
+      </TiltCard>
     </motion.div>
   );
 }
