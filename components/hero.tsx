@@ -1,14 +1,50 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { personalInfo } from "@/lib/data";
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 120 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const orbX1 = useTransform(smoothX, [-0.5, 0.5], [60, -60]);
+  const orbY1 = useTransform(smoothY, [-0.5, 0.5], [60, -60]);
+  const orbX2 = useTransform(smoothX, [-0.5, 0.5], [-50, 50]);
+  const orbY2 = useTransform(smoothY, [-0.5, 0.5], [-50, 50]);
+
+  const textX = useTransform(smoothX, [-0.5, 0.5], [12, -12]);
+  const textY = useTransform(smoothY, [-0.5, 0.5], [12, -12]);
+  const subtitleX = useTransform(smoothX, [-0.5, 0.5], [6, -6]);
+  const subtitleY = useTransform(smoothY, [-0.5, 0.5], [6, -6]);
+
+  function handleMouseMove(e: React.MouseEvent) {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+
   return (
-    <section className="dot-pattern relative flex min-h-screen items-center justify-center overflow-hidden px-6">
-      {/* Gradient orbs */}
-      <div className="pointer-events-none absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-accent-cyan/10 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-accent-violet/10 blur-[120px]" />
+    <section
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      className="dot-pattern relative flex min-h-screen items-center justify-center overflow-hidden px-6"
+    >
+      {/* Parallax gradient orbs */}
+      <motion.div
+        style={{ x: orbX1, y: orbY1 }}
+        className="pointer-events-none absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-accent-cyan/10 blur-[120px]"
+      />
+      <motion.div
+        style={{ x: orbX2, y: orbY2 }}
+        className="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-accent-violet/10 blur-[120px]"
+      />
 
       <div className="relative z-10 text-center">
         <motion.p
@@ -23,6 +59,7 @@ export function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
+          style={{ x: textX, y: textY }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="gradient-text mb-4 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
         >
@@ -32,6 +69,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
+          style={{ x: subtitleX, y: subtitleY }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8 text-lg text-muted sm:text-xl md:text-2xl"
         >
