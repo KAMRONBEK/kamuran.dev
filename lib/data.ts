@@ -3,7 +3,6 @@ export const personalInfo = {
   title: "React Native / React Developer",
   email: "kamuranbek1998@gmail.com",
   location: "Tashkent, Uzbekistan",
-  // resume: "https://docs.google.com/document/d/1dBnvGtI7UEleFq-Jv60nFjxC3LGRG1p10vhQYkVnHyI/export?format=pdf",
   github: "https://github.com/KAMRONBEK",
   linkedin: "https://linkedin.com/in/kamronbek-juraev",
   telegram: "https://t.me/kamuranizer",
