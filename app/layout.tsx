@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: "Kamronbek Juraev — React Native / React Developer",
   description:
     "Personal portfolio of Kamronbek Juraev. 6+ years of experience building cross-platform mobile and web applications. 20+ apps shipped across fintech, e-commerce, insurance, and logistics.",
+  icons: {
+    // Favicons are aggressively cached in browsers/CDNs; bump `v` on updates.
+    icon: [{ url: "/icon.png?v=1" }],
+    apple: [{ url: "/apple-icon.png?v=1" }],
+  },
   keywords: [
     "Kamronbek Juraev",
     "React Native Developer",
