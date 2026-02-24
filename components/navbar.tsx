@@ -45,15 +45,19 @@ export function Navbar() {
           ))}
           <li>
             <a
-              href={personalInfo.resume}
+              href={personalInfo.telegram}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-9 items-center gap-1.5 rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.4 11.3l16.9-7.2c.8-.3 1.5.4 1.2 1.2l-7.2 16.9c-.3.8-1.4.7-1.6-.1l-2.1-6.4-6.4-2.1c-.8-.3-.9-1.4-.1-1.7zM10.6 15.4l3.3-3.3"
+                />
               </svg>
-              Resume
+              Telegram
             </a>
           </li>
         </ul>
@@ -110,16 +114,20 @@ export function Navbar() {
                   transition={{ delay: navLinks.length * 0.1 }}
                 >
                   <a
-                    href={personalInfo.resume}
+                    href={personalInfo.telegram}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileOpen(false)}
                     className="inline-flex items-center gap-2 text-2xl font-medium text-accent-cyan transition-colors hover:text-foreground"
                   >
                     <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3.4 11.3l16.9-7.2c.8-.3 1.5.4 1.2 1.2l-7.2 16.9c-.3.8-1.4.7-1.6-.1l-2.1-6.4-6.4-2.1c-.8-.3-.9-1.4-.1-1.7zM10.6 15.4l3.3-3.3"
+                      />
                     </svg>
-                    Resume
+                    Telegram
                   </a>
                 </motion.li>
               </ul>
