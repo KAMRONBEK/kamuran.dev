@@ -13,7 +13,7 @@ export const personalInfo = {
 export const stats = [
   { label: "Years Experience", value: "6+" },
   { label: "Apps Shipped", value: "20+" },
-  { label: "Companies", value: "6" },
+  { label: "Companies", value: "5" },
   { label: "Platforms", value: "3" },
 ] as const;
 

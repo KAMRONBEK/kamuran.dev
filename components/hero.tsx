@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { personalInfo } from "@/lib/data";
+import { personalInfo, stats } from "@/lib/data";
 import { useParallax } from "./parallax-provider";
 import { ParticleNetwork } from "./particle-network";
 
@@ -44,10 +44,9 @@ export function Hero() {
   const heading = useParallax(12);
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+    <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-32 md:pt-36">
       <ParticleNetwork />
 
-      {/* Gradient orbs with autonomous drift */}
       <motion.div
         style={{ x: orb1.x, y: orb1.y }}
         animate={{
@@ -67,86 +66,106 @@ export function Hero() {
         className="pointer-events-none absolute -bottom-32 -right-32 h-[600px] w-[600px] rounded-full bg-accent-violet/15 blur-[150px]"
       />
 
-      <div className="relative z-10 text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.6 }}
-          className="mb-4 font-mono text-sm tracking-widest text-accent-cyan"
-        >
-          &lt;Hello World /&gt;
-        </motion.p>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          style={{ x: heading.x, y: heading.y }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="gradient-text-glow mb-4 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
-        >
-          {personalInfo.name}
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.5 }}
-          className="mb-10 text-lg text-muted sm:text-xl md:text-2xl"
-        >
-          <TypingText text={personalInfo.title} delay={0.6} />
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1 }}
-          className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-        >
-          <a
-            href="#projects"
-            className="btn-glow inline-flex h-12 items-center rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet px-8 text-sm font-medium text-white transition-all hover:scale-105"
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.6 }}
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-card-border bg-card/70 px-4 py-2 font-mono text-xs tracking-[0.24em] text-accent-cyan"
           >
-            View My Work
-          </a>
-          <a
-            href={personalInfo.telegram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gradient-border btn-glow inline-flex h-12 items-center gap-2 rounded-full px-8 text-sm font-medium text-foreground transition-all hover:scale-105 hover:bg-card"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.4 11.3l16.9-7.2c.8-.3 1.5.4 1.2 1.2l-7.2 16.9c-.3.8-1.4.7-1.6-.1l-2.1-6.4-6.4-2.1c-.8-.3-.9-1.4-.1-1.7zM10.6 15.4l3.3-3.3"
-              />
-            </svg>
-            @kamuranizer
-          </a>
-        </motion.div>
+            SYSTEM ONLINE
+          </motion.p>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        >
+          <motion.h1
+            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            style={{ x: heading.x, y: heading.y }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="mb-6 text-5xl font-black tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
+          >
+            Building
+            <span className="gradient-text-glow block">high-impact products</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.5 }}
+            className="mb-4 text-base text-muted sm:text-lg md:text-xl"
+          >
+            <TypingText text={personalInfo.title} delay={0.6} />
+          </motion.p>
+          <p className="mb-10 max-w-2xl text-sm leading-relaxed text-slate-300 md:text-base">
+            I design and ship polished mobile and web experiences with strong architecture,
+            fast performance, and product-level attention to detail.
+          </p>
+
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            className="mb-8 flex flex-col gap-3 sm:flex-row"
           >
-            <span className="text-xs text-muted">Scroll</span>
-            <svg width="16" height="24" viewBox="0 0 16 24" fill="none" className="text-muted">
-              <rect x="1" y="1" width="14" height="22" rx="7" stroke="currentColor" strokeWidth="1.5" />
-              <motion.circle
-                cx="8" cy="8" r="2" fill="currentColor"
-                animate={{ cy: [8, 14, 8] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              />
-            </svg>
+            <a
+              href="#projects"
+              className="btn-glow futuristic-cta inline-flex h-12 items-center justify-center rounded-full bg-linear-to-r from-accent-cyan to-accent-violet px-8 text-sm font-semibold text-slate-950 transition-transform hover:-translate-y-0.5"
+            >
+              Explore Projects
+            </a>
+            <a
+              href={personalInfo.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gradient-border inline-flex h-12 items-center justify-center gap-2 rounded-full bg-card/65 px-8 text-sm font-medium text-foreground transition-colors hover:bg-card"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.4 11.3l16.9-7.2c.8-.3 1.5.4 1.2 1.2l-7.2 16.9c-.3.8-1.4.7-1.6-.1l-2.1-6.4-6.4-2.1c-.8-.3-.9-1.4-.1-1.7zM10.6 15.4l3.3-3.3"
+                />
+              </svg>
+              Start a Conversation
+            </a>
           </motion.div>
+
+          <div className="flex flex-wrap gap-2">
+            <span className="pill-chip px-3 py-1.5 text-xs text-muted">Next.js + React Native</span>
+            <span className="pill-chip px-3 py-1.5 text-xs text-muted">Fintech, Logistics, E-commerce</span>
+            <span className="pill-chip px-3 py-1.5 text-xs text-muted">UX + Performance Focused</span>
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="surface-glass glow rounded-3xl p-6 md:p-8"
+        >
+          <div className="mb-6 flex items-center justify-between">
+            <p className="text-xs uppercase tracking-[0.22em] text-accent-cyan">Profile Snapshot</p>
+            <span className="pill-chip px-3 py-1 text-xs text-muted">Available for projects</span>
+          </div>
+
+          <h2 className="mb-1 text-2xl font-bold text-foreground">{personalInfo.name}</h2>
+          <p className="mb-5 text-sm text-muted">{personalInfo.location}</p>
+
+          <div className="grid grid-cols-2 gap-3">
+            {stats.map((item) => (
+              <div key={item.label} className="rounded-2xl border border-card-border bg-card/70 p-4">
+                <p className="text-2xl font-black text-foreground">{item.value}</p>
+                <p className="mt-1 text-xs text-muted">{item.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-accent-cyan/40 bg-accent-cyan/10 px-4 py-3 text-sm font-semibold text-accent-cyan transition-colors hover:bg-accent-cyan/20"
+          >
+            {personalInfo.email}
+          </a>
         </motion.div>
       </div>
     </section>

@@ -19,31 +19,44 @@ export function Contact() {
         className="pointer-events-none absolute bottom-0 left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-accent-cyan/5 blur-[100px]"
       />
 
-      <div className="relative mx-auto max-w-2xl text-center">
+      <div className="relative mx-auto max-w-5xl">
         <BlurIn>
-          <motion.div style={{ x: content.x, y: content.y }}>
-            <p className="mb-3 font-mono text-sm tracking-widest text-accent-cyan">&lt;Contact /&gt;</p>
-            <h2 className="gradient-text-glow mb-4 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-              Let&apos;s Work Together
+          <motion.div
+            style={{ x: content.x, y: content.y }}
+            className="surface-glass rounded-3xl p-6 md:p-10"
+          >
+            <p className="mb-3 font-mono text-xs tracking-[0.22em] text-accent-cyan">CONTACT</p>
+            <h2 className="gradient-text-glow mb-4 text-4xl font-black tracking-tight md:text-5xl lg:text-6xl">
+              Let&apos;s build something incredible
             </h2>
-            <p className="mx-auto mb-10 max-w-md text-muted">
-              I&apos;m always open to new opportunities and interesting projects. Whether you have a
-              question or just want to say hi, feel free to reach out.
+            <p className="mb-10 max-w-2xl text-sm text-muted md:text-base">
+              Open to freelance projects, product teams, and collaborations where modern UX and
+              engineering quality matter.
             </p>
 
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="btn-glow inline-flex h-14 items-center rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet px-10 text-base font-medium text-white transition-all hover:scale-105"
-            >
-              Say Hello
-            </a>
+            <div className="grid gap-4 md:grid-cols-[1fr_auto]">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="btn-glow futuristic-cta inline-flex h-14 items-center justify-center rounded-2xl bg-linear-to-r from-accent-cyan to-accent-violet px-8 text-base font-semibold text-slate-950 transition-transform hover:-translate-y-0.5"
+              >
+                Send an Email
+              </a>
+              <a
+                href={personalInfo.telegram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gradient-border inline-flex h-14 items-center justify-center rounded-2xl bg-card/70 px-8 text-sm font-medium text-foreground"
+              >
+                Message on Telegram
+              </a>
+            </div>
 
-            <div className="mt-12 flex items-center justify-center gap-8">
+            <div className="mt-10 flex items-center gap-6">
               <a
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted transition-all hover:text-accent-cyan hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"
+                className="text-muted transition-all hover:text-accent-cyan"
                 aria-label="GitHub"
               >
                 <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
@@ -54,7 +67,7 @@ export function Contact() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted transition-all hover:text-accent-cyan hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"
+                className="text-muted transition-all hover:text-accent-cyan"
                 aria-label="LinkedIn"
               >
                 <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
@@ -63,7 +76,7 @@ export function Contact() {
               </a>
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="text-muted transition-all hover:text-accent-cyan hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"
+                className="text-muted transition-all hover:text-accent-cyan"
                 aria-label="Email"
               >
                 <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -74,7 +87,7 @@ export function Contact() {
           </motion.div>
         </BlurIn>
 
-        <BlurIn delay={0.2} className="mt-24 border-t border-card-border pt-8">
+        <BlurIn delay={0.2} className="mt-10 border-t border-card-border pt-8 text-center">
           <p className="text-sm text-muted">
             &copy; {new Date().getFullYear()} Kamronbek Juraev. Built with Next.js & Tailwind CSS.
           </p>

@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects, type Project } from "@/lib/data";
 import { SectionHeading } from "./section-heading";
 import { useParallax } from "./parallax-provider";
 import { TiltCard } from "./tilt-card";
+import { GlassCard } from "./ui/glass-card";
+import { SectionShell } from "./ui/section-shell";
 
 type Filter = "all" | "mobile" | "web";
 
@@ -45,7 +48,8 @@ export function Projects() {
   const orb = useParallax(30);
   const [filter, setFilter] = useState<Filter>("all");
 
-  const filtered = filter === "all" ? projects : projects.filter((p) => p.type === filter);
+  const filtered =
+    filter === "all" ? projects : projects.filter((p) => p.type === filter);
   const mobileCount = projects.filter((p) => p.type === "mobile").length;
   const webCount = projects.filter((p) => p.type === "web").length;
 
@@ -56,7 +60,7 @@ export function Projects() {
   ];
 
   return (
-    <section id="projects" className="grid-bg relative overflow-hidden px-6 py-24 md:py-32">
+    <SectionShell id="projects" useGrid>
       <motion.div
         style={{ x: orb.x, y: orb.y }}
         className="pointer-events-none absolute -right-40 bottom-20 h-[400px] w-[400px] rounded-full bg-accent-violet/8 blur-[100px]"
@@ -73,10 +77,11 @@ export function Projects() {
             <button
               key={f.key}
               onClick={() => setFilter(f.key)}
+              aria-pressed={filter === f.key}
               className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
                 filter === f.key
-                  ? "btn-glow bg-gradient-to-r from-accent-cyan to-accent-violet text-white"
-                  : "border border-card-border text-muted hover:border-accent-cyan/30 hover:text-foreground"
+                  ? "btn-glow futuristic-cta bg-gradient-to-r from-accent-cyan to-accent-violet text-white"
+                  : "pill-chip text-muted hover:text-foreground"
               }`}
             >
               {f.label}
@@ -87,21 +92,28 @@ export function Projects() {
         <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
-              <ProjectCard key={project.name} project={project} index={i} />
+              <ProjectCard
+                key={project.name}
+                project={project}
+                index={i}
+                highPriority={i < 3}
+              />
             ))}
           </AnimatePresence>
         </motion.div>
       </div>
-    </section>
+    </SectionShell>
   );
 }
 
 function ProjectCard({
   project,
   index,
+  highPriority,
 }: {
   project: Project;
   index: number;
+  highPriority: boolean;
 }) {
   const grad = gradients[index % gradients.length];
   const iconColor = iconColors[index % iconColors.length];
@@ -115,7 +127,7 @@ function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.03 }}
     >
       <TiltCard className="h-full">
-        <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-card-border bg-card transition-all duration-300 hover:border-accent-violet/40 hover:shadow-lg hover:shadow-accent-violet/10">
+        <GlassCard className="group relative flex h-full flex-col overflow-hidden p-0">
           <div
             className={`relative flex h-40 items-center justify-center bg-gradient-to-br ${grad} overflow-hidden`}
           >
@@ -123,15 +135,22 @@ function ProjectCard({
 
             {project.image ? (
               <div className="relative flex items-center justify-center py-4">
-                <img
+                <Image
                   src={project.image}
                   alt={project.name}
+                  width={96}
+                  height={96}
+                  sizes="96px"
+                  loading={highPriority ? "eager" : "lazy"}
+                  priority={highPriority}
                   className="h-24 w-24 rounded-2xl object-cover shadow-lg ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
             ) : (
               <div className="relative flex items-center gap-3">
-                <span className={`text-5xl font-bold opacity-80 transition-transform duration-300 group-hover:scale-110 ${iconColor}`}>
+                <span
+                  className={`text-5xl font-bold opacity-80 transition-transform duration-300 group-hover:scale-110 ${iconColor}`}
+                >
                   {getInitials(project.name)}
                 </span>
                 <div className={`${iconColor} opacity-60`}>
@@ -164,7 +183,7 @@ function ProjectCard({
               {project.tech.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-card-border bg-background px-2 py-0.5 text-xs text-muted"
+                  className="pill-chip px-2 py-0.5 text-xs text-muted"
                 >
                   {t}
                 </span>
@@ -179,7 +198,7 @@ function ProjectCard({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-accent-cyan transition-colors hover:text-foreground"
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-accent-cyan transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     <StoreLinkIcon type={link.label} />
                     {link.label}
@@ -188,7 +207,7 @@ function ProjectCard({
               </div>
             )}
           </div>
-        </div>
+        </GlassCard>
       </TiltCard>
     </motion.div>
   );
@@ -196,16 +215,36 @@ function ProjectCard({
 
 function PhoneIcon() {
   return (
-    <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+    <svg
+      className="h-10 w-10"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
+      />
     </svg>
   );
 }
 
 function GlobeIcon() {
   return (
-    <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-4.247m0 0A8.966 8.966 0 013 12c0-1.97.633-3.794 1.716-5.278" />
+    <svg
+      className="h-10 w-10"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-4.247m0 0A8.966 8.966 0 013 12c0-1.97.633-3.794 1.716-5.278"
+      />
     </svg>
   );
 }
@@ -226,8 +265,18 @@ function StoreLinkIcon({ type }: { type: string }) {
     );
   }
   return (
-    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+    <svg
+      className="h-3.5 w-3.5"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+      />
     </svg>
   );
 }

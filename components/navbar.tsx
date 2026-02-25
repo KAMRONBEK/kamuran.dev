@@ -20,24 +20,30 @@ export function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-card-border bg-background/80 backdrop-blur-xl"
-          : "bg-transparent"
-      }`}
+      className="fixed top-0 z-50 w-full px-4 pt-4"
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-0.5">
-          <AnimatedK />
+      <nav
+        className={`mx-auto flex max-w-7xl items-center justify-between rounded-2xl border px-4 py-3 transition-all duration-300 md:px-6 ${
+          scrolled
+            ? "border-card-border bg-background/80 shadow-[0_14px_34px_-22px_rgba(34,211,238,0.7)] backdrop-blur-xl"
+            : "border-slate-400/15 bg-background/55 backdrop-blur-lg"
+        }`}
+      >
+        <a href="#" className="flex items-center gap-2">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-card-border bg-card/70">
+            <AnimatedK />
+          </span>
+          <span className="hidden text-sm font-semibold tracking-wide text-foreground sm:block">
+            Kamronbek Juraev
+          </span>
         </a>
 
-        {/* Desktop */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-2 md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-muted transition-colors hover:text-foreground"
+                className="pill-chip inline-flex items-center px-4 py-2 text-sm text-muted transition-all hover:-translate-y-0.5 hover:border-accent-cyan/50 hover:text-foreground"
               >
                 {link.label}
               </a>
@@ -48,9 +54,15 @@ export function Navbar() {
               href={personalInfo.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 items-center gap-1.5 rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="btn-glow futuristic-cta inline-flex h-10 items-center gap-1.5 rounded-full bg-linear-to-r from-accent-cyan to-accent-violet px-5 text-sm font-semibold text-slate-950 transition-transform hover:-translate-y-0.5"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -62,10 +74,9 @@ export function Navbar() {
           </li>
         </ul>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="relative z-50 flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-xl border border-card-border bg-card/70 md:hidden"
           aria-label="Toggle menu"
         >
           <motion.span
@@ -82,16 +93,15 @@ export function Navbar() {
           />
         </button>
 
-        {/* Mobile menu */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 flex items-center justify-center bg-background/95 backdrop-blur-xl md:hidden"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed inset-x-4 top-20 z-40 rounded-2xl border border-card-border bg-background/95 p-6 shadow-2xl backdrop-blur-xl md:hidden"
             >
-              <ul className="flex flex-col items-center gap-8">
+              <ul className="flex flex-col gap-3">
                 {navLinks.map((link, i) => (
                   <motion.li
                     key={link.href}
@@ -102,7 +112,7 @@ export function Navbar() {
                     <a
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="text-2xl font-medium text-foreground transition-colors hover:text-accent-cyan"
+                      className="pill-chip block rounded-xl px-4 py-3 text-base font-medium text-foreground transition-colors hover:border-accent-cyan/45 hover:text-accent-cyan"
                     >
                       {link.label}
                     </a>
@@ -118,9 +128,15 @@ export function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileOpen(false)}
-                    className="inline-flex items-center gap-2 text-2xl font-medium text-accent-cyan transition-colors hover:text-foreground"
+                    className="btn-glow mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent-cyan to-accent-violet px-4 py-3 text-base font-semibold text-slate-950"
                   >
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"

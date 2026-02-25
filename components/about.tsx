@@ -20,34 +20,45 @@ export function About() {
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading
           title="About Me"
-          subtitle="Building digital experiences across platforms"
+          subtitle="Product-minded engineering with clean architecture and premium UX"
         />
 
-        <BlurIn className="mx-auto mb-12 max-w-2xl text-center text-lg leading-relaxed text-muted">
+        <BlurIn className="mx-auto mb-12 max-w-3xl text-center text-base leading-relaxed text-slate-300 md:text-lg">
           <p>{personalInfo.summary}</p>
         </BlurIn>
 
         <div className="grid gap-6 md:grid-cols-2">
           <ScaleIn delay={0.1}>
             <TiltCard>
-              <div className="rounded-2xl border border-card-border bg-card p-6 transition-all duration-300 hover:border-accent-violet/40 hover:shadow-lg hover:shadow-accent-violet/10">
-                <h3 className="mb-3 text-lg font-semibold text-foreground">Education</h3>
-                <p className="font-medium text-foreground">{education.school}</p>
+              <div className="surface-glass h-full rounded-3xl p-6 transition-all duration-300 hover:border-accent-violet/35">
+                <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-accent-cyan">
+                  Education
+                </p>
+                <h3 className="mb-2 text-xl font-semibold text-foreground">{education.school}</h3>
                 <p className="text-sm text-muted">{education.degree}</p>
-                <p className="text-sm text-muted">{education.period}</p>
-                <p className="mt-2 text-sm font-medium text-accent-cyan">GPA: {education.gpa}</p>
+                <div className="mt-6 flex items-center justify-between">
+                  <p className="text-xs uppercase tracking-[0.18em] text-muted">{education.period}</p>
+                  <span className="pill-chip px-3 py-1 text-xs font-medium text-accent-cyan">
+                    GPA {education.gpa}
+                  </span>
+                </div>
               </div>
             </TiltCard>
           </ScaleIn>
           <ScaleIn delay={0.2}>
             <TiltCard>
-              <div className="rounded-2xl border border-card-border bg-card p-6 transition-all duration-300 hover:border-accent-violet/40 hover:shadow-lg hover:shadow-accent-violet/10">
-                <h3 className="mb-3 text-lg font-semibold text-foreground">Languages</h3>
-                <ul className="space-y-2">
+              <div className="surface-glass h-full rounded-3xl p-6 transition-all duration-300 hover:border-accent-cyan/35">
+                <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-accent-violet">
+                  Languages
+                </p>
+                <ul className="space-y-3">
                   {languages.map((lang) => (
-                    <li key={lang.name} className="flex items-center justify-between">
-                      <span className="font-medium text-foreground">{lang.name}</span>
-                      <span className="text-sm text-accent-cyan">{lang.level}</span>
+                    <li
+                      key={lang.name}
+                      className="rounded-xl border border-card-border bg-card/60 px-4 py-3"
+                    >
+                      <p className="text-sm font-semibold text-foreground">{lang.name}</p>
+                      <p className="mt-1 text-xs text-muted">{lang.level}</p>
                     </li>
                   ))}
                 </ul>
