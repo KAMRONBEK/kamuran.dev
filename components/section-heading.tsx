@@ -18,7 +18,7 @@ export function SectionHeading({
         </span>
         <div className="h-px w-8 bg-gradient-to-l from-transparent to-accent-cyan" />
       </div>
-      <h2 className="gradient-text-glow mb-3 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+      <h2 className="font-heading gradient-text-glow mb-3 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
         {title}
       </h2>
       {subtitle && (

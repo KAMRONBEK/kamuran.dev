@@ -8,12 +8,23 @@
   --color-card-border: #1f2937;
   --color-accent-cyan: #06b6d4;
   --color-accent-violet: #8b5cf6;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-heading: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+@utility font-heading {
+  font-family: var(--font-heading);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -35,6 +46,13 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.3)) drop-shadow(0 0 60px rgba(139, 92, 246, 0.2));
+}
+
+/* Stitch-style outlined headline */
+.text-outline {
+  -webkit-text-stroke: 2px var(--color-foreground);
+  color: transparent;
+  paint-order: stroke fill;
 }
 
 .gradient-border {
@@ -130,7 +148,12 @@ body {
 /* Glowing button */
 .btn-glow {
   position: relative;
-  transition: all 0.3s;
+  transition: all 0.2s;
+}
+
+.btn-glow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-accent-cyan);
 }
 
 .btn-glow::before {

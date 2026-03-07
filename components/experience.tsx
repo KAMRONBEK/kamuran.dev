@@ -4,17 +4,18 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { experiences } from "@/lib/data";
 import { SectionHeading } from "./section-heading";
-import { useParallax } from "./parallax-provider";
-import { TiltCard } from "./tilt-card";
 
 function TimelineNode({ index }: { index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className={`absolute top-2 hidden h-4 w-4 md:block ${
-      index % 2 === 0 ? "-right-2" : "-left-2"
-    }`}>
+    <div
+      ref={ref}
+      className={`absolute top-2 hidden h-4 w-4 md:block ${
+        index % 2 === 0 ? "-right-2" : "-left-2"
+      }`}
+    >
       <motion.div
         initial={{ scale: 0 }}
         animate={inView ? { scale: 1 } : {}}
@@ -26,7 +27,6 @@ function TimelineNode({ index }: { index: number }) {
 }
 
 export function Experience() {
-  const orb = useParallax(-20);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -36,21 +36,17 @@ export function Experience() {
 
   return (
     <section id="experience" className="relative overflow-hidden px-6 py-24 md:py-32">
-      <motion.div
-        style={{ x: orb.x, y: orb.y }}
-        className="pointer-events-none absolute -left-60 top-1/3 h-[400px] w-[400px] rounded-full bg-accent-violet/8 blur-[100px]"
-      />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_80%_50%,rgba(139,92,246,0.05),transparent)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:48px_48px]" />
 
-      <div className="mx-auto max-w-4xl">
+      <div className="relative mx-auto max-w-4xl">
         <SectionHeading
           title="Experience"
           subtitle="6+ years of building production-grade applications"
         />
 
         <div ref={containerRef} className="relative">
-          {/* Static track */}
-          <div className="absolute left-0 top-0 hidden h-full w-px bg-card-border md:left-1/2 md:block md:-translate-x-px" />
-          {/* Animated fill */}
+          <div className="absolute left-0 top-0 hidden h-full w-px bg-white/10 md:left-1/2 md:block md:-translate-x-px" />
           <motion.div
             style={{ height: lineHeight }}
             className="absolute left-0 top-0 hidden w-px bg-gradient-to-b from-accent-cyan via-accent-violet to-accent-cyan md:left-1/2 md:block md:-translate-x-px"
@@ -59,10 +55,10 @@ export function Experience() {
           {experiences.map((exp, i) => (
             <motion.div
               key={exp.company}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               <div
                 className={`relative mb-12 md:mb-16 md:w-1/2 ${
@@ -71,33 +67,31 @@ export function Experience() {
               >
                 <TimelineNode index={i} />
 
-                <TiltCard>
-                  <div className="rounded-2xl border border-card-border bg-card p-6 transition-all duration-300 hover:border-accent-cyan/40 hover:shadow-lg hover:shadow-accent-cyan/10">
-                    <p className="mb-1 font-mono text-xs text-accent-cyan">{exp.period}</p>
-                    <h3 className="text-lg font-semibold text-foreground">{exp.company}</h3>
-                    <p className="mb-3 text-sm text-accent-violet">{exp.role}</p>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all duration-200 hover:border-accent-cyan/30 hover:bg-white/10">
+                  <p className="mb-1 font-mono text-xs text-accent-cyan">{exp.period}</p>
+                  <h3 className="font-heading text-lg font-semibold text-foreground">{exp.company}</h3>
+                  <p className="mb-3 text-sm text-accent-violet">{exp.role}</p>
 
-                    <ul className="mb-4 space-y-1.5">
-                      {exp.highlights.map((h) => (
-                        <li key={h} className="flex items-start gap-2 text-sm text-muted">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet" />
-                          {h}
-                        </li>
-                      ))}
-                    </ul>
+                  <ul className="mb-4 space-y-1.5">
+                    {exp.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2 text-sm text-muted">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
 
-                    <div className="flex flex-wrap gap-2">
-                      {exp.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="rounded-full border border-card-border bg-background px-2.5 py-0.5 text-xs text-muted transition-colors hover:border-accent-cyan/40 hover:text-accent-cyan"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs text-muted"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
-                </TiltCard>
+                </div>
               </div>
             </motion.div>
           ))}

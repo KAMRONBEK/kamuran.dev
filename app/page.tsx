@@ -1,4 +1,3 @@
-import { ParallaxProvider } from "@/components/parallax-provider";
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
@@ -23,13 +22,13 @@ const jsonLd = {
 
 export default function Home() {
   return (
-    <ParallaxProvider>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Navbar />
-      <main>
+      <main className="pt-0">
         <Hero />
         <About />
         <Experience />
@@ -37,6 +36,6 @@ export default function Home() {
         <Skills />
         <Contact />
       </main>
-    </ParallaxProvider>
+    </>
   );
 }
