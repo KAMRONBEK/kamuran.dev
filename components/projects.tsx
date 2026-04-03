@@ -100,8 +100,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.4, delay: index * 0.03 }}
       className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-200 hover:border-accent-violet/30 hover:bg-white/10"
     >
-      <div className={`flex h-36 items-center justify-center bg-gradient-to-br ${grad}`}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.05),transparent)]" />
+      <div className={`relative flex h-36 items-center justify-center bg-gradient-to-br ${grad}`}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.05),transparent)]" />
         {project.image ? (
           <img
             src={project.image}
