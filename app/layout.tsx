@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -46,6 +46,11 @@ export const metadata: Metadata = {
     description:
       "6+ years of experience. 20+ apps shipped. Building cross-platform mobile and web applications.",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#070a12",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

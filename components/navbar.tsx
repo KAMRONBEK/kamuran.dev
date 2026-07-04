@@ -1,132 +1,100 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { navLinks, personalInfo } from "@/lib/data";
-import { AnimatedK } from "./animated-k";
+import { useEffect, useState } from "react";
+import { navSections, personalInfo } from "@/lib/data";
+import { MagneticLink } from "./ui/magnetic";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [active, setActive] = useState<string>("");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    let raf = 0;
+
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      setScrolled(y > 40);
+
+      // Scrollspy: the most-recently-entered section — the crossed one whose top
+      // is closest to the 40% line. Order-independent (navSections is not in DOM order).
+      const vh = window.innerHeight;
+      let current = "";
+      let best = -Infinity;
+      for (const s of navSections) {
+        const el = document.getElementById(s.href.slice(1));
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top < vh * 0.4 && top > best) {
+          best = top;
+          current = s.href.slice(1);
+        }
+      }
+      setActive(current);
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed left-4 right-4 top-4 z-50 mx-auto max-w-6xl rounded-2xl transition-all duration-300 ${
+    <nav
+      className={`fixed inset-x-0 top-0 z-60 flex items-center justify-between gap-4 px-5 transition-all duration-300 sm:px-8 ${
         scrolled
-          ? "border border-white/10 bg-background/80 backdrop-blur-xl shadow-xl"
-          : "border border-white/5 bg-white/5 backdrop-blur-sm"
+          ? "border-b border-white/10 bg-background/85 py-3 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent py-4"
       }`}
     >
-      <nav className="flex items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-0.5">
-          <AnimatedK />
-        </a>
+      {/* Brand */}
+      <a href="#top" className="flex items-center gap-3" aria-label="Back to top">
+        <span className="flex h-[30px] w-[30px] items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-deep font-heading text-[14px] font-bold text-ink shadow-[0_4px_14px_-4px_rgba(255,143,58,0.6)]">
+          {personalInfo.initials}
+        </span>
+        <span className="font-heading text-[15px] font-semibold tracking-[-0.01em]">
+          {personalInfo.name}
+        </span>
+      </a>
 
-        {/* Desktop */}
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="cursor-pointer text-sm text-muted transition-colors duration-200 hover:text-foreground"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
+      {/* Center nav */}
+      <div className="hidden items-center gap-1 font-mono text-[12.5px] md:flex">
+        {navSections.map((s) => {
+          const isActive = active === s.href.slice(1);
+          return (
             <a
-              href={personalInfo.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cursor-pointer inline-flex h-9 items-center gap-1.5 rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet px-5 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-90"
+              key={s.href}
+              href={s.href}
+              aria-current={isActive ? "location" : undefined}
+              className={`rounded-md px-3 py-2 transition-colors duration-200 hover:text-foreground ${
+                isActive ? "font-medium text-accent" : "text-muted"
+              }`}
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-              </svg>
-              Resume
+              {s.label}
             </a>
-          </li>
-        </ul>
+          );
+        })}
+      </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="relative z-50 flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
-          aria-label="Toggle menu"
+      {/* Right cluster */}
+      <div className="flex items-center gap-3.5">
+        <span className="hidden items-center gap-2 font-mono text-[11.5px] text-muted sm:flex">
+          <span className="h-2 w-2 rounded-full bg-accent animate-dot-pulse" />
+          Available
+        </span>
+        <MagneticLink
+          href="#contact"
+          className="rounded-lg bg-accent px-4 py-2 font-mono text-[12.5px] font-medium text-ink transition-shadow duration-200 hover:shadow-[0_10px_30px_-8px_rgba(255,143,58,0.55)]"
         >
-          <motion.span
-            animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-            className="block h-0.5 w-6 bg-foreground"
-          />
-          <motion.span
-            animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="block h-0.5 w-6 bg-foreground"
-          />
-          <motion.span
-            animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-            className="block h-0.5 w-6 bg-foreground"
-          />
-        </button>
-
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 flex items-center justify-center bg-background/95 backdrop-blur-xl md:hidden"
-            >
-              <ul className="flex flex-col items-center gap-8">
-                {navLinks.map((link, i) => (
-                  <motion.li
-                    key={link.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <a
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="text-2xl font-medium text-foreground transition-colors hover:text-accent-cyan"
-                    >
-                      {link.label}
-                    </a>
-                  </motion.li>
-                ))}
-                <motion.li
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.1 }}
-                >
-                  <a
-                    href={personalInfo.resume}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMobileOpen(false)}
-                    className="inline-flex items-center gap-2 text-2xl font-medium text-accent-cyan transition-colors hover:text-foreground"
-                  >
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                    </svg>
-                    Resume
-                  </a>
-                </motion.li>
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-    </motion.header>
+          Get in touch
+        </MagneticLink>
+      </div>
+    </nav>
   );
 }
